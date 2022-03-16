@@ -12,10 +12,6 @@ int main()
 	const int park_1Day_Adult=56000,park_1Day_Teen=50000,park_1Day_Child=46000;
 	const int park_Aft4_Adult=45000,park_Aft4_Teen=40000,park_Aft4_Child=35000;
 	
-	for(;;){
-	if (isExit==2)
-		break;
-	
 	printf("이용권을  선택해주세요.\n");
 	printf("1. 종합이용권 : 롯데월드+민속박물관\n");
 	printf("2. 파크이용권 : 롯데월드\n");
@@ -116,10 +112,10 @@ int main()
 	printf("%d %d %d년 %d월 %d일 %d우대 %d세\n",type1,type2,year,month,day,typeCom,age);
 	
 	printf("권종 가격은 %d 원 입니다.\n",price);
-
+	price=0;
 	printf("총 가격은 %d 원 입니다.\n감사합니다.\n",totalPrice);
 	printf("계속 진행(1.새로운 주문,2:프로그램 종료): ");
 	scanf("%d",isExit);
-	}
+	
 	return 0;
 }
