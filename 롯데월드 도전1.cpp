@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctime>
 
 int main()
 {
@@ -11,7 +12,10 @@ int main()
 	const int all_Aft4_Adult=48000,all_Aft4_Teen=42000,all_Aft4_Child=36000;
 	const int park_1Day_Adult=56000,park_1Day_Teen=50000,park_1Day_Child=46000;
 	const int park_Aft4_Adult=45000,park_Aft4_Teen=40000,park_Aft4_Child=35000;
+	time_t timer; struct tm* t; timer = time(NULL); t=localtime(&timer);
 	
+	do
+	{
 	printf("이용권을  선택해주세요.\n");
 	printf("1. 종합이용권 : 롯데월드+민속박물관\n");
 	printf("2. 파크이용권 : 롯데월드\n");
@@ -24,16 +28,16 @@ int main()
 	printf("생년월일을 입력하세요.\n");
 	scanf("%4d%2d%2d",&year,&month,&day);
 	//나이계산 
-	if (month>=4)
-		age=2022-year-1;
-	else if (month==3){
-		if (day>=16)
-			age=2022-year-1;
+	if (month>=t->tm_mon+2)
+		age=(t->tm_year+1900)-year-1;
+	else if (month==t->tm_mon+1){
+		if (day>=t->tm_mday)
+			age=(t->tm_year+1900)-year-1;
 		else
-			age=2022-year;
+			age=(t->tm_year+1900)-year;
 	}
 	else
-	age=2022-year;
+	age=(t->tm_year+1900)-year;
 	
 	printf("우대사항을 선택하세요.\n");
 	printf("1. 없음 (나이 우대는 자동처리)\n");
@@ -106,16 +110,18 @@ int main()
 			price=price*0.3;
 			break;
 	}
-
+	
 	totalPrice=totalPrice+price;
 	
 	printf("%d %d %d년 %d월 %d일 %d우대 %d세\n",type1,type2,year,month,day,typeCom,age);
 	
 	printf("권종 가격은 %d 원 입니다.\n",price);
 	price=0;
-	printf("총 가격은 %d 원 입니다.\n감사합니다.\n",totalPrice);
-	printf("계속 진행(1.새로운 주문,2:프로그램 종료): ");
-	scanf("%d",isExit);
+	printf("총 가격은 %d 원 입니다.\n감사합니다.\n\n",totalPrice);
 	
+	printf("계속 진행(1.새로운 주문,2:프로그램 종료): ");
+	scanf("%d",&isExit);
+	
+	}while(isExit==1);
 	return 0;
 }
