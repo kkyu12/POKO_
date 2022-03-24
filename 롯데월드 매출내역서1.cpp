@@ -146,7 +146,7 @@ int main()
 	//날짜별 매출현황 
 	
 	time[k][0]=year[0],time[k][1]=month[0],time[k][2]=day[0],time[k][3]=ticketPrice[0];
-	for (int i=0;i<index;i++){
+	for (int i=1;i<index;i++){
 		if (time[k][0]==year[i] && time[k][1]==month[i] && time[k][2]==day[i]){
 			time[k][3]+=ticketPrice[i];
 		}
