@@ -6,7 +6,7 @@ int main()
 	const int MAX=100;
 	int year[MAX],month[MAX],day[MAX],ticketType[MAX],ticketTime[MAX],age[MAX],
 		count[MAX],ticketPrice[MAX],typeCom[MAX];
-	int index=0,dayTotal=0,k;
+	int index=0, k=0;
 	int type[4][7]={0};
 	int time[MAX][4]={0};
 	int com[7]={0};
@@ -144,33 +144,26 @@ int main()
 	fclose(fp1);
 	
 	//날짜별 매출현황 
-	for(int i=0;i<index;i++) {
-		k= i-1;
-		if (k == -1) {
-			k=0;
-		}
-		if (year[i]==year[k] && month[i]==month[k] && day[i]==day[k]) {
-			dayTotal += ticketPrice[i];
-			if (i==index-1) {
-				printf("%d-%d-%d, %d\n",year[k],month[k],day[k], dayTotal);
-			}
+	
+	time[k][0]=year[0],time[k][1]=month[0],time[k][2]=day[0],time[k][3]=ticketPrice[0];
+	for (int i=0;i<index;i++){
+		if (time[k][0]==year[i] && time[k][1]==month[i] && time[k][2]==day[i]){
+			time[k][3]+=ticketPrice[i];
 		}
 		else {
-			if (i==index-1) {
-				printf("%d-%d-%d, %d\n",year[i],month[i],day[i], ticketPrice[i]);
-			}
-			else {
-				printf("%d-%d-%d, %d\n",year[k],month[k],day[k], dayTotal);
-				dayTotal=0;
-				dayTotal +=ticketPrice[i];
-			}
+			k++;
+			time[k][0]=year[i],time[k][1]=month[i],time[k][2]=day[i],time[k][3]=ticketPrice[i];
 		}
 	}
-	printf("\n"); 
-	/*
+	
+	for (int i=0;i<=k;i++)
+		printf("%d %d %d %d\n",time[i][0],time[i][1],time[i][2],time[i][3]);
+	printf("\n");
+	
 	FILE *fp2 = fopen("report2.csv", "w");
-	fprintf(fp,"%d,%d,%d,%d,%d,%d,%d\n",year[i],month[i],day[i],dayTotal[i]);
-	fclose(fp2);*/
+	for (int i=0;i<=k;i++)
+	fprintf(fp,"%d,%d,%d,%d\n",time[i][0],time[i][1],time[i][2],time[i][3]);
+	fclose(fp2);
 	
 	//우대권 매출현황 
 	for (int i=0;i<index;i++){
